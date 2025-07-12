@@ -1,6 +1,6 @@
 # cline and mcp setting in vscode
 
-![cline]](image.png)
+![cline](image.png)
 
 ![mcp](image-1.png)
 
