@@ -4,7 +4,7 @@ from mcp.server.fastmcp import FastMCP
 
 # 1. 初始化 FastMCP 服务器
 # 创建一个名为 "weather" 的服务器实例。这个名字有助于识别这套工具。
-mcp = FastMCP("weather")
+mcp = FastMCP("weather", log_level="WARNING")
 
 # --- 常量定义 ---
 # 美国国家气象局 (NWS) API 的基础 URL
@@ -47,12 +47,12 @@ def format_alert(feature: dict) -> str:
     props = feature["properties"]
     # 使用 .get() 方法安全地访问字典键，如果键不存在则返回默认值，避免程序出错
     return f"""
-事件: {props.get('event', '未知')}
-区域: {props.get('areaDesc', '未知')}
-严重性: {props.get('severity', '未知')}
-描述: {props.get('description', '无描述信息')}
-指令: {props.get('instruction', '无具体指令')}
-"""
+        事件: {props.get('event', '未知')}
+        区域: {props.get('areaDesc', '未知')}
+        严重性: {props.get('severity', '未知')}
+        描述: {props.get('description', '无描述信息')}
+        指令: {props.get('instruction', '无具体指令')}
+    """
 
 # --- MCP 工具定义 ---
 
@@ -114,11 +114,11 @@ async def get_forecast(latitude: float, longitude: float) -> str:
     # 遍历接下来的5个预报周期（例如：今天下午、今晚、明天...）
     for period in periods[:5]:
         forecast = f"""
-{period['name']}:
-温度: {period['temperature']}°{period['temperatureUnit']}
-风力: {period['windSpeed']} {period['windDirection']}
-预报: {period['detailedForecast']}
-"""
+            {period['name']}:
+            温度: {period['temperature']}°{period['temperatureUnit']}
+            风力: {period['windSpeed']} {period['windDirection']}
+            预报: {period['detailedForecast']}
+        """
         forecasts.append(forecast)
 
     # 将格式化后的预报信息连接成一个字符串并返回
